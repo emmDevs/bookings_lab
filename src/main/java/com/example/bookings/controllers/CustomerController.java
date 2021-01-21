@@ -22,7 +22,7 @@ import java.util.List;
 public class CustomerController {
 
     @Configuration
-    public class WebConfig extends WebMvcConfigurerAdapter {
+    public class WebConfig implements WebMvcConfigurer {
         @Override
         public void configurePathMatch(PathMatchConfigurer configurer) {
             AntPathMatcher matcher = new AntPathMatcher();
@@ -45,10 +45,10 @@ public class CustomerController {
             return new ResponseEntity<>(customerRepository.findByBookingsCourseNameIgnoreCase(course), HttpStatus.OK);
         }
         if(course != null && town != null){
-            return new ResponseEntity<>(customerRepository.findByTownAndBookingsCourseName(town, course), HttpStatus.OK);
+            return new ResponseEntity<>(customerRepository.findByTownAndBookingsCourseNameIgnoreCase(town, course), HttpStatus.OK);
         }
         if(course != null && town != null && age != null){
-            return new ResponseEntity<>(customerRepository.findByAgeGreaterThanAndTownAndBookingsCourseName(age, town, course), HttpStatus.OK);
+            return new ResponseEntity<>(customerRepository.findByAgeGreaterThanAndTownAndBookingsCourseNameIgnoreCase(age, town, course), HttpStatus.OK);
         }
         return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
     }
